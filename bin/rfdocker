@@ -8,7 +8,16 @@ this_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 ### main #######################################################################
 
-results_path="$(cd "$RESULTS_PATH" && pwd)"
+if [ -z "$RESULTS_PATH" ]; then
+  echo -e "[rfdocker] Variable 'RESULTS_PATH' is not explicitly set for outputs"
+  echo -e "[rfdocker] -> assuming $this_path/results/ \n"
+  results_path="$this_path/results"
+else
+  results_path="$(cd "$RESULTS_PATH" && pwd)"
+fi
+
+set -u
+
 tests_path="$(cd "$TESTS_PATH" && pwd)"
 
 docker run --rm -ti --name robot \
