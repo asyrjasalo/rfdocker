@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+### globals ####################################################################
+
+this_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+### main #######################################################################
+
+results_path="$(cd "$RESULTS_PATH" && pwd)"
+tests_path="$(cd "$TESTS_PATH" && pwd)"
+
+docker run --rm -ti --name robot \
+  -e UNAME="robot" \
+  -e GNAME="robot" \
+  -e UID=$(id -u) \
+  -e GID=$(id -g) \
+  -v "$results_path":/home/robot/results \
+  -v "$tests_path":/home/robot/tests \
+  rfdocker:latest "${@:-tests}"
