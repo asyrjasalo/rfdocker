@@ -16,8 +16,8 @@ else
   results_path="$(cd "$RESULTS_PATH" && pwd)"
 fi
 
+# Exit with non-zero, due to set -e, if TESTS_PATH is not set
 set -u
-
 tests_path="$(cd "$TESTS_PATH" && pwd)"
 
 docker run --rm -ti --name robot \
