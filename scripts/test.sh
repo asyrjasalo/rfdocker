@@ -15,4 +15,4 @@ mkdir -p "$temp_results_path"
 export RESULTS_PATH="$temp_results_path"
 echo -e "[rfdocker] Using a temporary RESULTS_PATH for tests: $RESULTS_PATH\n"
 
-TESTS_PATH=../tests "$this_path/../bin/rfdocker" tests
+TESTS_PATH="$this_path/../tests" "$this_path/../bin/rfdocker" tests
