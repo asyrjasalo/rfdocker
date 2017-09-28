@@ -21,7 +21,7 @@ fi
 set -u
 tests_path="$(cd "$TESTS_PATH" && pwd)"
 
-docker run --rm -ti --name rfdocker \
+docker run --rm -ti \
   -e UNAME="robot" \
   -e GNAME="robot" \
   -e UID=$(id -u) \
