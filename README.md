@@ -23,7 +23,7 @@ Regarding the installed Python packages: In addition to 'robotframework', the co
 
 ### Build the image
 
-The Robot Framework version to build is read from `rf_version` file.
+The Robot Framework version to build is read from `release_name` file.
 
     scripts/build.sh
 

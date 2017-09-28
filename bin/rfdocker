@@ -5,7 +5,7 @@ set -e
 ### globals ####################################################################
 
 this_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-rf_version=$(cat "$this_path/../rf_version")
+release_name=$(cat "$this_path/../release_name")
 
 ### main #######################################################################
 
@@ -27,7 +27,7 @@ else
   results_path="$(cd "$RESULTS_PATH" && pwd)"
 fi
 
-echo "[rfdocker] Using local Docker image 'rfdocker:$rf_version'"
+echo "[rfdocker] Using local Docker image 'rfdocker:$release_name'"
 echo "[rfdocker] Ensure you have built this with $this_path../scripts/build.sh"
 echo ""
 
@@ -38,4 +38,4 @@ docker run --rm -ti \
   -e GID=$(id -g) \
   -v "$results_path":/home/robot/results \
   -v "$tests_path":/home/robot/tests \
-  "rfdocker:$rf_version" "${@:-tests}"
+  "rfdocker:$release_name" "${@:-tests}"

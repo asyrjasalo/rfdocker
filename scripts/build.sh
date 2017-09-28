@@ -5,11 +5,11 @@ set -e
 ### globals ####################################################################
 
 this_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-rf_version=$(cat "$this_path/../rf_version")
+release_name=$(cat "$this_path/../release_name")
 
 ### main #######################################################################
 
 docker build --rm \
-  --build-arg RF_VERSION="$rf_version" \
-  -t "rfdocker:$rf_version" \
+  --build-arg RF_VERSION="$(echo $release_name | cut -d '-' -f 1)" \
+  -t "rfdocker:$release_name" \
   "$this_path/../docker"

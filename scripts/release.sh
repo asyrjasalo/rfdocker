@@ -5,7 +5,7 @@ set -e
 ### globals ####################################################################
 
 this_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-rf_version=$(cat "$this_path/../rf_version")
+release_name=$(cat "$this_path/../release_name")
 
 ### main #######################################################################
 
@@ -16,13 +16,13 @@ if [ -z "$1" ]; then
   exit 64
 fi
 
-echo "### Creating a git tag '$rf_version' for the release"
-git tag --force --annotate --message "Release $rf_version" "$rf_version"
+echo "### Creating a git tag '$release_name' for the release"
+git tag --force --annotate --message "Release $release_name" "$release_name"
 
 repository_url="$1"
 
-echo "### Tagging image 'rfdocker:$rf_version' to '$repository_url:$rf_version'"
-docker tag "rfdocker:$rf_version" "$repository_url:$rf_version"
+echo "### Tagging image 'rfdocker:$release_name' to '$repository_url:$release_name'"
+docker tag "rfdocker:$release_name" "$repository_url:$release_name"
 
-echo "### Pushing image 'rfdocker:$rf_version' to registry..."
-docker push "$repository_url:$rf_version"
+echo "### Pushing image 'rfdocker:$release_name' to registry..."
+docker push "$repository_url:$release_name"
