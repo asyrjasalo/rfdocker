@@ -4,10 +4,10 @@ MAINTAINER asyrjasalo <anssi.syrjasalo@gmail.com>
 RUN apk add --update --no-cache bash sudo su-exec && \
   rm -rf /var/cache/* /tmp/* /var/log/* ~/.cache
 
-COPY entrypoint.sh /usr/local/sbin/
+COPY entrypoint /usr/local/sbin/
 
-RUN chown root /usr/local/sbin/entrypoint.sh && \
-  chmod 700 /usr/local/sbin/entrypoint.sh
+RUN chown root /usr/local/sbin/entrypoint && \
+  chmod 700 /usr/local/sbin/entrypoint
 
 ENV UNAME="robot" \
     GNAME="robot" \
@@ -25,4 +25,4 @@ RUN pip install --no-cache-dir \
   robotframework==$RF_VERSION \
   -r requirements.txt
 
-ENTRYPOINT ["entrypoint.sh", "robot", "--outputdir", "results"]
+ENTRYPOINT ["entrypoint", "robot", "--outputdir", "results"]
