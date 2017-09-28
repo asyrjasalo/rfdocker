@@ -10,11 +10,11 @@ RUN chown root /usr/local/sbin/entrypoint && \
   chmod 700 /usr/local/sbin/entrypoint
 
 ENV UNAME="robot" \
-    GNAME="robot" \
-    UHOME="/home/robot" \
-    UID="1000" \
-    GID="1000" \
-    SHELL="/bin/bash"
+  GNAME="robot" \
+  UHOME="/home/robot" \
+  UID="1000" \
+  GID="1000" \
+  SHELL="/bin/bash"
 
 WORKDIR "${UHOME}"
 
