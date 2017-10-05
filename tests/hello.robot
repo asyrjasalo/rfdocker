@@ -1,5 +1,5 @@
 *** Settings ***
-
+Library  DebugLibrary
 
 *** Test Cases ***
 Hello World
