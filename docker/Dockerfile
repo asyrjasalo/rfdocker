@@ -1,5 +1,5 @@
-FROM python:3.6-alpine
 MAINTAINER asyrjasalo <anssi.syrjasalo@gmail.com>
+FROM python:3.6.3-alpine
 
 RUN apk add --update --no-cache bash sudo su-exec && \
   rm -rf /var/cache/* /tmp/* /var/log/* ~/.cache
