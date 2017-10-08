@@ -1,4 +1,4 @@
-FROM python:3.6.3-alpine
+FROM python:2.7.14-alpine
 MAINTAINER asyrjasalo
 
 RUN apk add --update --no-cache bash sudo su-exec && \
