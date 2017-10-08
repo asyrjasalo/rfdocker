@@ -14,6 +14,8 @@ release_name=$(cat "$this_path/../release_name")
 mkdir -p "$temp_results_path"
 
 docker run --rm -ti \
+  -e UID=$(id -u) \
+  -e GID=$(id -g) \
   -v "$temp_results_path":/home/robot/results \
   -v "$this_path/../tests":/home/robot/tests \
     "rfdocker:$release_name" \

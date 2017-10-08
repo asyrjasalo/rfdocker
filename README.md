@@ -9,6 +9,8 @@ Robot Framework (pybot) running in an Alpine Linux based Docker container, havin
     export RESULTS_PATH="$(pwd)/results"
     export TESTS_PATH="$(pwd)/tests"
     docker run --rm -ti \
+      -e UID=$(id -u) \
+      -e GID=$(id -g) \
       -v "$RESULTS_PATH":/home/robot/results \
       -v "$TESTS_PATH":/home/robot/tests \
       robotframework/rfdocker:3.0.2-python3 tests
