@@ -2,9 +2,7 @@
 
 https://hub.docker.com/r/robotframework/rfdocker
 
-Robot Framework running in an Alpine Linux based Docker container.
-
-Regarding the installed Python packages: In addition to 'robotframework', the container has 'robotframework-debuglibrary' installed.
+Robot Framework (pybot) running in an Alpine Linux based Docker container, having Python 2.7.14.
 
 ## Usage
 
@@ -17,7 +15,7 @@ Regarding the installed Python packages: In addition to 'robotframework', the co
       -e GID=$(id -g) \
       -v "$RESULTS_PATH":/home/robot/results \
       -v "$TESTS_PATH":/home/robot/tests \
-      robotframework/rfdocker:3.0.2 tests
+      robotframework/rfdocker:3.0.2-python2 tests
 
 ## Development
 
