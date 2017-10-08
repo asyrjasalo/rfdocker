@@ -19,10 +19,6 @@ ENV UNAME="robot" \
 WORKDIR "${UHOME}"
 
 ARG RF_VERSION
-
-COPY requirements.txt .
-RUN pip install --no-cache-dir \
-  robotframework==$RF_VERSION \
-  -r requirements.txt
+RUN pip install --no-cache-dir robotframework==$RF_VERSION
 
 ENTRYPOINT ["entrypoint", "robot", "--outputdir", "results"]
