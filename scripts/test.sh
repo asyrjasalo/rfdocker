@@ -7,12 +7,14 @@ set -u
 
 this_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 temp_results_path="/tmp/rfdocker-tests"
+release_name=$(cat "$this_path/../release_name")
 
 ### main #######################################################################
 
 mkdir -p "$temp_results_path"
 
-export RESULTS_PATH="$temp_results_path"
-echo -e "[rfdocker] Using a temporary RESULTS_PATH for tests: $RESULTS_PATH\n"
-
-TESTS_PATH="$this_path/../tests" "$this_path/../bin/rfdocker" tests
+docker run --rm -ti \
+  -v "$temp_results_path":/home/robot/results \
+  -v "$this_path/../tests":/home/robot/tests \
+    "rfdocker:$release_name" \
+    tests
