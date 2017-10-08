@@ -2,7 +2,7 @@
 
 https://hub.docker.com/r/robotframework/rfdocker
 
-Robot Framework (pybot) running in an Alpine Linux based Docker container, having Python 2.7.14.
+Robot Framework (pybot) running in an Alpine Linux based Docker container, having Python 3.6.3.
 
 ## Usage
 
@@ -11,7 +11,7 @@ Robot Framework (pybot) running in an Alpine Linux based Docker container, havin
     docker run --rm -ti \
       -v "$RESULTS_PATH":/home/robot/results \
       -v "$TESTS_PATH":/home/robot/tests \
-      robotframework/rfdocker:3.0.2-python2 tests
+      robotframework/rfdocker:3.0.2-python3 tests
 
 ## Development
 
