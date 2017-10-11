@@ -1,5 +1,5 @@
-FROM python:3.6.3-alpine
-MAINTAINER asyrjasalo
+ARG PYTHON_VERSION
+FROM python:"$PYTHON_VERSION"-alpine
 
 RUN apk add --update --no-cache bash sudo su-exec && \
   rm -rf /var/cache/* /tmp/* /var/log/* ~/.cache
@@ -16,9 +16,9 @@ ENV UNAME="robot" \
   GID="1000" \
   SHELL="/bin/bash"
 
-WORKDIR "${UHOME}"
+ARG ROBOTFRAMEWORK_VERSION
+RUN pip install --no-cache-dir robotframework==$ROBOTFRAMEWORK_VERSION
 
-ARG RF_VERSION
-RUN pip install --no-cache-dir robotframework==$RF_VERSION
+WORKDIR "$UHOME"
 
 ENTRYPOINT ["entrypoint", "robot", "--outputdir", "results"]
