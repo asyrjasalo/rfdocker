@@ -30,8 +30,8 @@ Any given arguments are passed forward to `robot` in the container, e.g. the out
 
     docker run --rm -ti -e UID=$UID -e GID=$GID \
       -v "$PWD":/home/robot \
-      robotframework/rfdocker:3.0.2 \
-      tests/ --outputdir results/ci/$(date +%Y-%m-%dT%H:%M:%S)
+      robotframework/rfdocker:3.0.2 tests/ \
+      --outputdir results/ci/$(date +%Y-%m-%dT%H:%M:%S)
 
 ## External test libraries
 
