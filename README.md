@@ -18,7 +18,7 @@ The prebuilt images for both are hosted in [Docker Hub](https://hub.docker.com/r
 
 To run `tests/` in the current working directory:
 
-    docker run --rm -ti -e UID=$UID -e GID=$GID \
+    docker run --rm -ti -e HOST_UID=$UID -e HOST_GID=$GID \
       -v "$PWD":/home/robot \
       robotframework/rfdocker:3.0.2 tests/
 
@@ -28,7 +28,7 @@ With the above command, the output files are put in the current working director
 
 Any given arguments are passed forward to `robot` in the container, e.g. the output directory can be renamed with:
 
-    docker run --rm -ti -e UID=$UID -e GID=$GID \
+    docker run --rm -ti -e HOST_UID=$UID -e HOST_GID=$GID \
       -v "$PWD":/home/robot \
       robotframework/rfdocker:3.0.2 tests/ \
       --outputdir results/ci/$(date +%Y-%m-%dT%H:%M:%S)
@@ -57,7 +57,7 @@ Assuming `Dockerfile` is in the current directory (`.`):
 
 ### 3. Run your tests
 
-    docker run --rm -ti -e UID=$UID -e GID=$GID \
+    docker run --rm -ti -e HOST_UID=$UID -e HOST_GID=$GID \
       -v "$PWD":/home/robot \
       rfdocker:3.0.2-YOURDISTNAME tests/
 

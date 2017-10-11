@@ -12,6 +12,6 @@ temp_results_path="/tmp/rfdocker-tests"
 
 mkdir -p "$temp_results_path"
 
-docker run --rm -ti -e UID=$UID -e GID=$GID \
+docker run --rm -ti -e HOST_UID=$UID -e HOST_GID=$GID \
   -v "$this_path/..":/home/robot \
   "rfdocker:$release_name" tests/

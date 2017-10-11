@@ -12,8 +12,8 @@ RUN chown root /usr/local/sbin/entrypoint && \
 ENV UNAME="robot" \
   GNAME="robot" \
   UHOME="/home/robot" \
-  UID="1000" \
-  GID="1000" \
+  HOST_UID="1000" \
+  HOST_GID="1000" \
   SHELL="/bin/bash"
 
 ARG ROBOTFRAMEWORK_VERSION
