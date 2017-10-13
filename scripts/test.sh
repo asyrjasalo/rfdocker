@@ -9,6 +9,6 @@ release_name="$(cat "$this_path/../release_name")"
 
 ### main #######################################################################
 
-docker run --rm -ti -e HOST_UID=$UID -e HOST_GID=$GID \
+docker run --rm -ti -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) \
   -v "$this_path/..":/home/robot \
   "rfdocker:$release_name" tests/
