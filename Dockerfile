@@ -1,5 +1,5 @@
 # https://hub.docker.com/r/robotframework/rfdocker
-FROM robotframework/rfdocker:3.0.2
+FROM robotframework/rfdocker:3.0.2-python2
 
 ### Uncomment following two lines if having external test libraries:
 # COPY requirements.txt .
