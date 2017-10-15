@@ -10,7 +10,12 @@
 
 ## Usage
 
-Copy `rfdocker` and `Dockerfile` to where your `tests/` directory is. Then:
+Download `rfdocker` and `Dockerfile` to where your `tests/` directory is:
+
+    wget http://raw.githubusercontent.com/asyrjasalo/rfdocker/master/rfdocker -O rfdocker && chmod +x rfdocker
+    wget http://raw.githubusercontent.com/asyrjasalo/rfdocker/master/Dockerfile -O Dockerfile
+
+ Then:
 
     ./rfdocker
 
