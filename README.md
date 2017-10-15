@@ -37,7 +37,7 @@ Put the external test libraries to `requirements.txt` and uncomment the lines in
 
 If the external test libraries require OS-level dependencies, you may need to add installation of these to `Dockerfile` (before running `pip`).
 
-On Alpine Linux, you can install packages with `RUN apk add --update <packagename>`. See [Alpine Linux wiki page](https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management) for more information, and `docker/Dockerfile.base` in this repository as an example.
+On Alpine Linux, you can install packages with `RUN apk add --update {{packagename}}`. See [Alpine Linux wiki page](https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management) for more information, and `docker/Dockerfile.base` in this repository as an example.
 
 ### Customizing `docker` arguments
 
@@ -55,14 +55,10 @@ To build a new image:
 
 The Robot Framework version is read from file `scripts/release_name`, and Python version from file `scripts/python_version`.
 
-To push the image to Docker registry and create a git tag named after `release_name`:
-
-    scripts/release REPOSITORY_URL
-
-For example:
+To push the image to Docker registry (and create a git tag after `release_name`):
 
     scripts/release https://your.private.registry.com:5000/rfdocker
 
 For pushing to [Docker Hub](https://hub.docker.com), you can use:
 
-    scripts/release YOURORGANIZATION/rfdocker
+    scripts/release {{organization}}/rfdocker
