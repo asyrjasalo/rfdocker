@@ -20,7 +20,7 @@ The Robot Framework output files are put in the same directory under `results/`.
 
 Any arguments are forwarded to `robot` inside the container, e.g. the output directory can be renamed with:
 
-    ./rfdocker --outputdir results/ci/$(date +%Y-%m-%dT%H:%M:%S)
+    ./rfdocker --outputdir results/$(date +%Y-%m-%dT%H:%M:%S) tests/
 
 ### External test libraries
 
