@@ -16,8 +16,8 @@ ENV UNAME="robot" \
   HOST_GID="1000" \
   SHELL="/bin/bash"
 
-ARG ROBOTFRAMEWORK_VERSION
-RUN pip install --no-cache-dir robotframework==$ROBOTFRAMEWORK_VERSION
+ARG RF_VERSION
+RUN pip install --no-cache-dir robotframework=="$RF_VERSION"
 
 WORKDIR "$UHOME"
 

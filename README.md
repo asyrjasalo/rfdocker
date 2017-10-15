@@ -4,86 +4,56 @@
 
 ### Why?
 
-1. To try out Robot Framework, or take it into use, without (having access to do) any  installations on the host
-2. To avoid managing virtualenvs to deal with conflicting Python dependencies of the test libraries
-3. Still be able to run your Robot Framework tests with one command, as a drop-in placement
-
-### Versioning
-
-Git branches 'master' and 'python2' are to build the Docker images for Robot Framework on Python 3 and 2 series, respectively.
-
-The prebuilt images for both are hosted in [Docker Hub](https://hub.docker.com/r/robotframework/rfdocker). The version number in the image tag corresponds to the Robot Framework release.
+1. To take Robot Framework into use without (having `sudo` to do) installations on the host
+2. To avoid virtualenvs, etc. to deal with conflicting dependencies of the test libraries
+3. To be able to install Robot Framework and run the tests with one command
 
 ## Usage
 
-To run `tests/` in the current working directory:
+Copy `rfdocker` and `Dockerfile` to where your `tests/` directory is. Then:
 
-    docker run --rm -ti -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) \
-      -v "$PWD":/home/robot \
-      robotframework/rfdocker:3.0.2 tests/
+    ./rfdocker
 
-With the above command, the output files are put in the current working directory under `results/`.
+The Robot Framework output files are put in the same directory under `results/`.
 
 ### Robot Framework arguments
 
-Any given arguments are passed forward to `robot` in the container, e.g. the output directory can be renamed with:
+Any arguments are forwarded to `robot` inside the container, e.g. the output directory can be renamed with:
 
-    docker run --rm -ti -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) \
-      -v "$PWD":/home/robot \
-      robotframework/rfdocker:3.0.2 tests/ \
-      --outputdir results/ci/$(date +%Y-%m-%dT%H:%M:%S)
+    ./rfdocker --outputdir results/ci/$(date +%Y-%m-%dT%H:%M:%S)
 
-## External test libraries
+### External test libraries
 
-You can base on top of `robotframework/rfdocker` images for creating your own distributions with the external test libraries bundled in as following.
+Put the external test libraries to `requirements.txt` and uncomment the lines in `Dockerfile`. The packages are automatically installed inside the container whenever `rfdocker` is ran.
 
-### 1. Create a `Dockerfile`
+If the external test libraries require OS-level dependencies, you may need to add installation of these to `Dockerfile` (before running `pip`).
 
-```
-FROM robotframework/rfdocker:3.0.2
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-```
+On Alpine Linux, you can install packages with `RUN apk add --update <packagename>`. See [Alpine Linux wiki page](https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management) for more information, and `docker/Dockerfile.base` in this repository as an example.
 
-Put the external test libraries as Python packages into `requirements.txt`, as usually. Here we are assuming `requirements.txt` is in the same directory as `Dockerfile`.
+### Customizing `docker` arguments
 
-If the test libraries require OS-level dependencies, you can install them before `pip install` with `RUN apk add --update <packagename>`. See [Alpine Linux wiki page](https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management) for more information, and `docker/Dockerfile` in this repository for an example of `apk` usage.
+You can pass variable `BUILD_ARGS` to `rfdocker` to customize how `docker build` is ran, and variable `BUILD_DIR` to override the path of `Dockerfile` and `requirements.txt`.
 
-### 2. Build your image
-
-Assuming `Dockerfile` is in the current directory (`.`):
-
-    docker build . -t rfdocker:3.0.2-YOURDISTNAME
-
-### 3. Run your tests
-
-    docker run --rm -ti -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) \
-      -v "$PWD":/home/robot \
-      rfdocker:3.0.2-YOURDISTNAME tests/
+Similarly, you can pass variable `RUN_ARGS` to `rfdocker` to e.g. define additional volume mappings for CI, to persist `results/` outside the Jenkins job's workspace, or to allow connecting to your host machine from the container (`RUN_ARGS="--network=host"`).
 
 ## Contributing
 
-These steps tell how `rfdocker` image itself is built from scratch.
+Git branches 'master' and 'python2' are to build images for Robot Framework on Python 3 and 2 series, respectively. The both images are hosted in [Docker Hub, robotframework/rfdocker](https://hub.docker.com/r/robotframework/rfdocker). The version numbers correspond to the Robot Framework releases. The images are built using `rfdocker` itself, with the help of `scripts/`. You may benefit from these scripts for distributing your own images as well.
 
-### 1. Build the image
+To build a new image:
 
-The Robot Framework version is read from `release_name` file.
-The Python version is read from `python_version` file.
+    scripts/build
 
-    scripts/build.sh
+The Robot Framework version is read from file `scripts/release_name`, and Python version from file `scripts/python_version`.
 
-### 2. Run a test as a sanity check for the built image
+To push the image to Docker registry and create a git tag named after `release_name`:
 
-    scripts/test.sh
-
-### 3. Push the image to a Docker registry, and create a git tag for the release
-
-    scripts/release.sh REPOSITORY_URL
+    scripts/release REPOSITORY_URL
 
 For example:
 
-    scripts/release.sh https://your.private.registry.com:5000/rfdocker
+    scripts/release https://your.private.registry.com:5000/rfdocker
 
-If pushing to [Docker Hub](https://hub.docker.com), you can use:
+For pushing to [Docker Hub](https://hub.docker.com), you can use:
 
-    scripts/release.sh yourorganization/rfdocker
+    scripts/release YOURORGANIZATION/rfdocker

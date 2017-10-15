@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -e
+
+### contants ###################################################################
+
+this_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+### variables ##################################################################
+
+release_name="$(cat "$this_path/release_name")"
+rf_version="$(echo "$release_name" | cut -d '-' -f 1)"
+python_version="$(cat "$this_path/python_version")"
+
+### build ######################################################################
+
+BUILD_ARGS="--file $this_path/../docker/Dockerfile.base \
+--build-arg PYTHON_VERSION=$python_version \
+--build-arg RF_VERSION=$rf_version" \
+BUILD_DIR="$this_path/../docker" \
+BUILD_NAME="$release_name" \
+  "$this_path/../rfdocker"
