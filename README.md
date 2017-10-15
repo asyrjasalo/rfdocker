@@ -12,11 +12,11 @@
 
 Download `rfdocker` and `Dockerfile` to where your `tests/` directory is:
 
-    curl https://raw.githubusercontent.com/asyrjasalo/rfdocker/master/rfdocker -o rfdocker || \
-    wget https://raw.githubusercontent.com/asyrjasalo/rfdocker/master/rfdocker -O rfdocker && \
+    curl https://raw.githubusercontent.com/asyrjasalo/rfdocker/python2/rfdocker -o rfdocker || \
+    wget https://raw.githubusercontent.com/asyrjasalo/rfdocker/python2/rfdocker -O rfdocker && \
     chmod +x rfdocker && \
-    curl https://raw.githubusercontent.com/asyrjasalo/rfdocker/master/Dockerfile -o Dockerfile || \
-    wget https://raw.githubusercontent.com/asyrjasalo/rfdocker/master/Dockerfile -O Dockerfile && \
+    curl https://raw.githubusercontent.com/asyrjasalo/rfdocker/python2/Dockerfile -o Dockerfile || \
+    wget https://raw.githubusercontent.com/asyrjasalo/rfdocker/python2/Dockerfile -O Dockerfile && \
     echo "Done."
 
  Then:
