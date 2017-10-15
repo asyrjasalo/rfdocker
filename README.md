@@ -41,7 +41,7 @@ On Alpine Linux, you can install packages with `RUN apk add --update {{packagena
 
 ### Customizing `docker` arguments
 
-You can pass variable `BUILD_ARGS` to `rfdocker` to customize how `docker build` is ran, and variable `BUILD_DIR` to override the path of `Dockerfile` and `requirements.txt`.
+You can pass variable `BUILD_ARGS` to `rfdocker` to customize `docker build` arguments, and variable `BUILD_DIR` to override the path of the directory where `Dockerfile` and `requirements.txt` are.
 
 Similarly, you can pass variable `RUN_ARGS` to `rfdocker` to e.g. define additional volume mappings for CI, to persist `results/` outside the Jenkins job's workspace, or to allow connecting to your host machine from the container (`RUN_ARGS="--network=host"`).
 
