@@ -12,7 +12,7 @@ if [ ! -f "/etc/sudoers.d/$UNAME" ]; then
   chmod 0440 "/etc/sudoers.d/$UNAME"
 fi
 
-# create the group
+# create the group for the user
 egrep -i "^$GNAME" /etc/group;
 if [ $? -ne 0 ]; then
   echo "$GNAME:x:$HOST_GID:$UNAME" >> /etc/group
