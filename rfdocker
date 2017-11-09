@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# https://github.com/asyrjasalo/rfdocker
+# https://hub.docker.com/r/robotframework/rfdocker
+
 set -e
 
 ### constants ##################################################################
