@@ -26,6 +26,12 @@ docker tag "rfdocker:$release_name" "$registry_url:$release_name"
 echo "### Pushing image 'rfdocker:$release_name' to registry..."
 docker push "$registry_url:$release_name"
 
+echo "### Tagging image 'rfdocker:$release_name' to '$registry_url:latest'"
+docker tag "rfdocker:$release_name" "$registry_url:latest"
+
+echo "### Pushing image 'rfdocker:$release_name' to '$registry_url:latest'"
+docker push "$registry_url:latest"
+
 echo "### Replacing image tag in Dockerfile with '$release_name'"
 sed -i "s/FROM robotframework\/rfdocker:.*/FROM robotframework\/rfdocker:$release_name/" "$this_path/../Dockerfile"
 
