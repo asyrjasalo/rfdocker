@@ -49,6 +49,8 @@ Similarly, you can pass variable `RUN_ARGS` to `rfdocker` to e.g. define additio
 
 Git branches 'master' and 'python2' are to build images for Robot Framework on Python 3 and 2 series, respectively. The both images are hosted in [Docker Hub, robotframework/rfdocker](https://hub.docker.com/r/robotframework/rfdocker). The version numbers correspond to the Robot Framework releases.
 
+**Since Robot Framework version 3.0.4, [Python 2 image is unmaintained](https://pythonclock.org).**
+
 In addition to version numbered tags, tag 'latest' references to the latest Robot Framework final (no rcs) on Python 3 series - please use tag 'latest' carefully though, in general with Docker images, as it is possible that the upcoming Robot Framework versions could introduce some backwards incompatible changes in the future, without you noticing this as easily as when using explicit version numbers.
 
 The images are built using `rfdocker` itself, with the help of `scripts/`. You may benefit from these scripts for distributing your own images as well.
