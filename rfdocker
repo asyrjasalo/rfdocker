@@ -16,11 +16,11 @@ this_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 : ${BUILD_NAME:=${this_path##*/}}
 : ${RUN_ARGS:=''}
 
-### build and run tests ########################################################
+### build and run ##############################################################
 
 docker build $BUILD_ARGS --tag "rfdocker:$BUILD_NAME" "$BUILD_DIR"
 
-docker run --rm -ti -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) $RUN_ARGS \
-  -v "$this_path/tests":/home/robot/tests \
+docker run --rm -ti --env HOST_UID=$(id -u) --env HOST_GID=$(id -g) $RUN_ARGS \
+  -v "$this_path/robots":/home/robot/robots \
   -v "$this_path/results":/home/robot/results \
-  "rfdocker:$BUILD_NAME" "${@:-tests}"
+  "rfdocker:$BUILD_NAME" "${@:-robots}"
