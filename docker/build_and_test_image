@@ -9,11 +9,11 @@ repo_root_path="$(cd "$this_path/.." && pwd)"
 
 ### variables ##################################################################
 
-: ${BUILD_ARGS:=""}
-: ${BUILD_DIR:="$repo_root_path"}
+: "${BUILD_ARGS:=""}"
+: "${BUILD_DIR:="$repo_root_path"}"
 
-: ${IMAGE_NAME:="${BUILD_DIR##*/}"}
-: ${IMAGE_TAG:="$(cat "$this_path/rf_version")"}
+: "${IMAGE_NAME:="${BUILD_DIR##*/}"}"
+: "${IMAGE_TAG:=$(cat "$this_path/rf_version")}"
 
 ### build ######################################################################
 

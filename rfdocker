@@ -11,11 +11,11 @@ this_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 ### variables ##################################################################
 
-: ${BUILD_ARGS:=""}
-: ${BUILD_DIR:="$this_path"}
-: ${BUILD_NAME:="$(date +%y.%m.%d.%H%M%S)"}
-: ${IMAGE_NAME:=${this_path##*/}}
-: ${RUN_ARGS:=''}
+: "${BUILD_ARGS:=""}"
+: "${BUILD_DIR:="$this_path"}"
+: "${BUILD_NAME:="$(date +%y.%m.%d.%H%M%S)"}"
+: "${IMAGE_NAME:="${this_path##*/}"}"
+: "${RUN_ARGS:=""}"
 
 ### build and run ##############################################################
 
@@ -28,7 +28,7 @@ docker build $BUILD_ARGS --tag "$IMAGE_NAME:$BUILD_NAME" "$BUILD_DIR"
 # --user robot --cap-drop ALL
 
 docker run --rm \
-  --env HOST_UID=$(id -u) --env HOST_GID=$(id -g) \
+  --env HOST_UID="$(id -u)" --env HOST_GID="$(id -g)" \
   -it $RUN_ARGS \
   -v "$this_path/atest":/home/robot/atest \
   -v "$this_path/results":/home/robot/results \
