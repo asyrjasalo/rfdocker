@@ -15,7 +15,7 @@ repo_root_path="$(cd "$this_path/.." && pwd)"
 : ${IMAGE_NAME:="${BUILD_DIR##*/}"}
 : ${IMAGE_TAG:="$(cat "$this_path/rf_version")"}
 
-### build and run ##############################################################
+### build ######################################################################
 
 docker build \
   --file "$this_path/Dockerfile.slimbuster" \
@@ -27,7 +27,8 @@ docker build \
   --tag "$IMAGE_NAME:$IMAGE_TAG" \
   "$BUILD_DIR"
 
-# smoke check with ../rfdocker
+### smoke test with rfdocker ###################################################
+
 BUILD_ARGS="--build-arg FROM_IMAGE=$IMAGE_NAME" \
-RUN_ARGS="--user robot --cap-drop ALL" \
+  RUN_ARGS="--user robot --cap-drop ALL" \
   "$repo_root_path/rfdocker"
