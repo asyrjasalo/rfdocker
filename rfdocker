@@ -21,10 +21,10 @@ this_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 docker build $BUILD_ARGS --tag "$IMAGE_NAME:$BUILD_NAME" "$BUILD_DIR"
 
-# Kept for now with backwards compatibility with old rfdocker:
+# Kept for now to have backwards compatibility with the older rfdockers:
 # --env HOST_UID=$(id -u) --env HOST_GID=$(id -g)
 #
-# Later add:
+# Later remove those and add the following to the command below:
 # --user robot --cap-drop ALL
 
 docker run --rm \
