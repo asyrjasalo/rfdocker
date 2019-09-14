@@ -43,23 +43,23 @@ You can pass variable `BUILD_ARGS` to `rfdocker` to customize `docker build` arg
 Similarly, you can pass variable `RUN_ARGS` to `rfdocker` to e.g. define additional `docker run` arguments, e.g. to change the default volume mappings
 or networking.
 
-## Contributing
+## Building and hosting your own images
 
-Images are hosted in [Docker Hub, robotframework/rfdocker](https://hub.docker.com/r/robotframework/rfdocker). The version numbers correspond to the Robot Framework releases.
+The rfdocker images are hosted in [Docker Hub, robotframework/rfdocker](https://hub.docker.com/r/robotframework/rfdocker). The version numbers correspond to the Robot Framework releases.
 
 **Since Robot Framework version 3.0.4, [Python 2 image is unmaintained](https://pythonclock.org).**
 
-The built images are smoke tested using `rfdocker` in the repo itself. You will benefit from the following scripts in distributing your own images as well.
+The images are built with `docker/Dockerfile.slimbuster`. The image is smoke tested using `rfdocker` in the repo itself.
 
-To build a new image:
+Robot Framework version is read from file `docker/rf_version`, and Python version from file `docker/python_version`.
+
+To build a new base image:
 
     docker/build_and_test_image
 
-The Robot Framework version is read from file `docker/rf_version`, and Python version from file `docker/python_version`.
+Remember to `docker login` for the next script to push to a Docker registry.
 
-Remember to `docker login` for the next commands to push to a Docker registry.
-
-To push the image to your private Docker registry (highly recommended):
+To push the image to your private Docker registry (which you should always do):
 
     REGISTRY_URL=https://your.private.registry/username \
       docker/tag_and_push_image
@@ -68,3 +68,11 @@ For pushing to public [Docker Hub](https://hub.docker.com), you may want to use:
 
     REGISTRY_URL=username \
       docker/tag_and_push_image
+
+## Contributing to this repo
+
+Run [shellcheck](https://github.com/koalaman/shellcheck) for changes in scripts:
+
+    shellcheck rfdocker docker/build_and_test_image docker/tag_and_push_image
+
+I could appreciate some help to have something similar working on Windows.
