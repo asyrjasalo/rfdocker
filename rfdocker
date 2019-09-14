@@ -13,14 +13,23 @@ this_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 : ${BUILD_ARGS:=""}
 : ${BUILD_DIR:="$this_path"}
-: ${BUILD_NAME:=${this_path##*/}}
+: ${BUILD_NAME:="$(date +%y.%m.%d.%H%M%S)"}
+: ${IMAGE_NAME:=${this_path##*/}}
 : ${RUN_ARGS:=''}
 
 ### build and run ##############################################################
 
-docker build $BUILD_ARGS --tag "rfdocker:$BUILD_NAME" "$BUILD_DIR"
+docker build $BUILD_ARGS --tag "$IMAGE_NAME:$BUILD_NAME" "$BUILD_DIR"
 
-docker run --rm -ti --env HOST_UID=$(id -u) --env HOST_GID=$(id -g) $RUN_ARGS \
-  -v "$this_path/robots":/home/robot/robots \
+# Kept for now with backwards compatibility with old rfdocker:
+# --env HOST_UID=$(id -u) --env HOST_GID=$(id -g)
+#
+# Later add:
+# --user robot --cap-drop ALL
+
+docker run --rm \
+  --env HOST_UID=$(id -u) --env HOST_GID=$(id -g) \
+  -it $RUN_ARGS \
+  -v "$this_path/atest":/home/robot/atest \
   -v "$this_path/results":/home/robot/results \
-  "rfdocker:$BUILD_NAME" "${@:-robots}"
+  "$IMAGE_NAME:$BUILD_NAME" "${@:-atest}"

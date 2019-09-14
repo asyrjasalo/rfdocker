@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -e
+
+### constants ##################################################################
+
+this_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+repo_root_path="$(cd "$this_path/.." && pwd)"
+
+### variables ##################################################################
+
+: ${BUILD_ARGS:=""}
+: ${BUILD_DIR:="$repo_root_path"}
+
+: ${IMAGE_NAME:="${BUILD_DIR##*/}"}
+: ${IMAGE_TAG:="$(cat "$this_path/rf_version")"}
+
+### build and run ##############################################################
+
+docker build \
+  --file "$this_path/Dockerfile.slimbuster" \
+  --pull \
+  --no-cache \
+  --build-arg PYTHON_VERSION="$(cat "$this_path/python_version")" \
+  --build-arg RF_VERSION="$(cat "$this_path/rf_version")" \
+  $BUILD_ARGS \
+  --tag "$IMAGE_NAME:$IMAGE_TAG" \
+  "$BUILD_DIR"
+
+# smoke check with ../rfdocker
+BUILD_ARGS="--build-arg FROM_IMAGE=$IMAGE_NAME" \
+RUN_ARGS="--user robot --cap-drop ALL" \
+  "$repo_root_path/rfdocker"

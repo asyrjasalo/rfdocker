@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -e
+
+### constants ##################################################################
+
+this_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+repo_root_path="$(cd "$this_path/.." && pwd)"
+
+### variables ##################################################################
+
+: ${IMAGE_NAME:="${repo_root_path##*/}"}
+: ${IMAGE_TAG:="$(cat "$this_path/rf_version")"}
+
+# Some Docker registries require image name in downcase, make it so:
+declare -l IMAGE_NAME
+IMAGE_NAME="$IMAGE_NAME"
+
+: ${REGISTRY_URL:=""}
+: ${REGISTRY_IMAGE_REF:="${REGISTRY_URL}/${IMAGE_NAME}"}
+: ${REGISTRY_IMAGE_TAG:="$(cat "$this_path/rf_version")"}
+
+### tag and push ###############################################################
+
+docker tag "$IMAGE_NAME:$IMAGE_TAG" "$REGISTRY_IMAGE_REF:$REGISTRY_IMAGE_TAG"
+docker push "$REGISTRY_IMAGE_REF:$REGISTRY_IMAGE_TAG"
+
+# NOTE: pushing tag "latest" could introduce some unwanted consequences...
