@@ -67,4 +67,4 @@ To push the image to your private Docker registry (highly recommended):
 For pushing to public [Docker Hub](https://hub.docker.com), you may want to use:
 
     REGISTRY_URL=username \
-      docker/tag_and_push_image username
+      docker/tag_and_push_image
