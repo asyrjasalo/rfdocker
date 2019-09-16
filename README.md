@@ -57,8 +57,6 @@ To build a new base image:
 
     docker/build_and_test_image
 
-Remember to `docker login` for the next script to push to a Docker registry.
-
 To push the image to your private Docker registry (which you should always do):
 
     REGISTRY_URL=https://your.private.registry/username \
@@ -68,6 +66,8 @@ For pushing to public [Docker Hub](https://hub.docker.com), you may want to use:
 
     REGISTRY_URL=username \
       docker/tag_and_push_image
+
+Remember to `docker login` for the script to push to a Docker registry.
 
 ## Contributing to this repo
 
