@@ -1,7 +1,6 @@
 ARG PYTHON_VERSION
 FROM python:$PYTHON_VERSION-slim-buster
 
-LABEL maintainer="Anssi Syrjäsalo <anssi.syrjasalo@gmail.com>"
 LABEL description="Robot Framework in a Python 3 slim-buster based Docker image"
 
 ARG UNAME="robot"
