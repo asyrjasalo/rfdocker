@@ -29,6 +29,5 @@ docker build \
 
 ### smoke test with rfdocker ###################################################
 
-BUILD_ARGS="--build-arg FROM_IMAGE=$IMAGE_NAME" \
-  RUN_ARGS="--user robot --cap-drop ALL" \
+BUILD_ARGS="--build-arg FROM_IMAGE=$IMAGE_NAME:$IMAGE_TAG" \
   "$repo_root_path/rfdocker"
