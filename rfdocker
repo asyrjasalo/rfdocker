@@ -13,7 +13,7 @@ this_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 : "${BUILD_ARGS:=""}"
 : "${BUILD_DIR:="$this_path"}"
-: "${BUILD_NAME:="$(date -u +%Y.%m.%d.post%H%M%S.dev$(id -u))"}"
+: "${BUILD_NAME:="$(date -u +%Y.%m.%d.post%H%M%S.dev"$(id -u)")"}"
 : "${IMAGE_NAME:="${this_path##*/}"}"
 : "${RUN_ARGS:=""}"
 
