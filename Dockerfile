@@ -1,7 +1,7 @@
 # https://github.com/asyrjasalo/rfdocker
 # https://hub.docker.com/r/robotframework/rfdocker
 
-ARG FROM_IMAGE=robotframework/rfdocker:3.1.2-slimbuster
+ARG FROM_IMAGE=robotframework/rfdocker:3.1.2
 FROM $FROM_IMAGE
 
 ### Uncomment following two lines if having external test libraries:
